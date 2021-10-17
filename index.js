@@ -1,4 +1,3 @@
-const cool = require('cool-ascii-faces');
 const express = require('express');
 const url = require("url");
 const path = require('path');
@@ -7,8 +6,6 @@ const statuses = ['pending', 'picking', 'on-way', 'delivered']
 
 express()
     .use(express.static(path.join(__dirname, 'public')))
-    .set('views', path.join(__dirname, 'views'))
-    .set('view engine', 'ejs')
     .get('/', (req, res) => {
         res.writeHead(200);
         const queryObject = url.parse(req.url, true).query;
@@ -20,5 +17,4 @@ express()
         } else
             res.end(statuses[0]);
     })
-    .get('/cool', (req, res) => res.send(cool()))
     .listen(PORT, () => console.log(`Listening on ${PORT}`));
